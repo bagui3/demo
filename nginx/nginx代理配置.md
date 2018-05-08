@@ -1,4 +1,4 @@
-[文章来源](http://www.jb51.net/article/78746.htm)
+[Nginx服务器的反向代理proxy_pass配置方法讲解](http://www.jb51.net/article/78746.htm)
 
 配置文件 conf/nginx.conf  
 
