@@ -52,27 +52,27 @@ cd nginx-1.10.1
 ```
 ### 配置
 其实在 nginx-1.10.1 版本中你就不需要去配置相关东西，默认就可以了。当然，如果你要自己配置目录也是可以的。
-1.使用默认配置
-```
-./configure
-```
-2.自定义配置（不推荐）
-```
-./configure \
---prefix=/usr/local/nginx \
---conf-path=/usr/local/nginx/conf/nginx.conf \
---pid-path=/usr/local/nginx/conf/nginx.pid \
---lock-path=/var/lock/nginx.lock \
---error-log-path=/var/log/nginx/error.log \
---http-log-path=/var/log/nginx/access.log \
---with-http_gzip_static_module \
---http-client-body-temp-path=/var/temp/nginx/client \
---http-proxy-temp-path=/var/temp/nginx/proxy \
---http-fastcgi-temp-path=/var/temp/nginx/fastcgi \
---http-uwsgi-temp-path=/var/temp/nginx/uwsgi \
---http-scgi-temp-path=/var/temp/nginx/scgi
-```
-注：将临时文件目录指定为/var/temp/nginx，需要在/var下创建temp及nginx目录
+1. 使用默认配置
+    ```
+    ./configure
+    ```
+2. 自定义配置（不推荐）
+    ```
+    ./configure \
+    --prefix=/usr/local/nginx \
+    --conf-path=/usr/local/nginx/conf/nginx.conf \
+    --pid-path=/usr/local/nginx/conf/nginx.pid \
+    --lock-path=/var/lock/nginx.lock \
+    --error-log-path=/var/log/nginx/error.log \
+    --http-log-path=/var/log/nginx/access.log \
+    --with-http_gzip_static_module \
+    --http-client-body-temp-path=/var/temp/nginx/client \
+    --http-proxy-temp-path=/var/temp/nginx/proxy \
+    --http-fastcgi-temp-path=/var/temp/nginx/fastcgi \
+    --http-uwsgi-temp-path=/var/temp/nginx/uwsgi \
+    --http-scgi-temp-path=/var/temp/nginx/scgi
+    ```
+- 注：将临时文件目录指定为/var/temp/nginx，需要在/var下创建temp及nginx目录
 
 ### 编译安装
 ```
