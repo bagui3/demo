@@ -1,11 +1,11 @@
 [部署私有Docker Registry(2.0)](https://tonybai.com/2016/02/26/deploy-a-private-docker-registry/)
 
 ## 部署私有Docker Registry
-安装部署一个私有的Docker Registry是引入、学习和使用Docker这门技术的必经之路之一。尤其是当Docker被所在组织接受，更多人、项目和产品开始接触和使用Docker时，存储和分发自制的Docker image便成了刚需。Docker Registry一如既往的继承了“Docker坑多”的特点，为此这里将自己搭建”各类”Registry过程中执行的步骤、遇到的问题记录下来，为己备忘，为他参考。
+安装部署一个私有的Docker Registry是引入、学习和使用[Docker](https://github.com/docker/docker)这门技术的必经之路之一。尤其是当[Docker](http://tonybai.com/tag/docker)被所在组织接受，更多人、项目和产品开始接触和使用Docker时，存储和分发自制的Docker image便成了刚需。Docker Registry一如既往的继承了“Docker坑多”的特点，为此这里将自己搭建”各类”Registry过程中执行的步骤、遇到的问题记录下来，为己备忘，为他参考。
 
-Docker在2015年推出了distribution项目，即Docker Registry 2。相比于old registry，Registry 2使用Go实现，在安全性、性能方面均有大幅改进。Registry设计了全新的Rest API，并且在image存储格式等方面不再兼容于old Registry。去年8月份，docker官方hub使用Registriy 2.1替代了原先的old Registry。如果你要与Registry2交互，你的Docker版本至少要是Docker 1.6。
+Docker在2015年推出了[distribution](https://github.com/docker/distribution)项目，即Docker Registry 2。相比于[old registry](https://github.com/docker/docker-registry)，Registry 2使用[Go](http://tonybai.com/tag/golang)实现，在安全性、性能方面均有大幅改进。Registry设计了全新的Rest API，并且在image存储格式等方面不再兼容于old Registry。去年8月份，docker官方hub使用Registriy 2.1替代了原先的old Registry。如果你要与Registry2交互，你的Docker版本至少要是Docker 1.6。
 
-Docker的开发者也一直在致力于改善Registry安装和使用的体验，通过提供官方Registry Image以及Docker Compose工具等来简化Registry的配置。不过在本文中，我们只是利用Docker以及Registry的官方Image来部署Registry，这样更便于全面了解Registry的部署配置细节。
+Docker的开发者也一直在致力于改善Registry安装和使用的体验，通过提供[官方Registry Image](https://hub.docker.com/_/registry/)以及[Docker Compose工具](https://github.com/docker/compose)等来简化Registry的配置。不过在本文中，我们只是利用Docker以及Registry的官方Image来部署Registry，这样更便于全面了解Registry的部署配置细节。
 
 Registry2在镜像存储方面不仅支持本地盘，还支持诸多主流第三方存储方案。通过分布式存储系统你还可以实现一个分布式Docker Registry服务。这里仅以本地盘以及single node registry2为例。
 
@@ -91,10 +91,10 @@ unable to ping registry endpoint https://10.10.105.71:5000/v0/
 v2 ping attempt failed with error: Get https://10.10.105.71:5000/v2/: tls: oversized record received with length 20527
  v1 ping attempt failed with error: Get https://10.10.105.71:5000/v1/_ping: tls: oversized record received with length 20527
 ```
-从错误信息来看，client与Registry交互，默认将采用https访问，但我们在install Registry时并未配置指定任何tls相关的key和crt文件，https访问定然失败。要想弄清这个问题，只能查看Registry Manual。
+从错误信息来看，client与Registry交互，默认将采用https访问，但我们在install Registry时并未配置指定任何tls相关的key和crt文件，https访问定然失败。要想弄清这个问题，只能查看[Registry Manual](https://github.com/docker/distribution/blob/master/docs/deploying.md)。
 
 ### 三、Insecure Registry
-Registry的文档还是相对详尽的。在文档中，我们找到了Insecure Registry，即接收plain http访问的Registry的配置和使用方法，虽然这不是官方推荐的。
+Registry的文档还是相对详尽的。在文档中，我们找到了[Insecure Registry](https://github.com/docker/distribution/blob/master/docs/insecure.md)，即接收plain http访问的Registry的配置和使用方法，虽然这不是官方推荐的。
 
 实际上对于我们内部网络而言，Insecure Registry基本能满足需求，部署过程也避免了secure registry的那些繁琐步骤，比如制作和部署证书等。
 
@@ -361,9 +361,9 @@ Push ok！
 $ curl --cacert domain.crt  --basic --user foo:foo123 https://mydockerhub.com:5000/v2/_catalog
 {"repositories":["tonybai/busybox","tonybai/ubuntu"]}
 ```
-但如果要删除Registry中的Repository或某个tag的Image，目前v2还不支持，原因见Registry的roadmap中的说明。
+但如果要删除Registry中的Repository或某个tag的Image，目前v2还不支持，原因见[Registry的roadmap中的说明](https://github.com/docker/distribution/blob/master/ROADMAP.md#deletes)。
 
-不过如果你的Registry的存储引擎使用的是本地盘，倒是有一些第三方脚本可供使用，比如：delete-docker-registry-image。
+不过如果你的Registry的存储引擎使用的是本地盘，倒是有一些第三方脚本可供使用，比如：[delete-docker-registry-image](https://github.com/burnettk/delete-docker-registry-image)。
 
 ### 七、小结
 Registry2发布不到1年，目前还有许多问题待解决，就比如delete image的问题，相信在2.4以及后续版本这些问题会被逐个解决掉或能找到一个相对理想的方案。
