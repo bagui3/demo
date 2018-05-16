@@ -17,6 +17,15 @@ docker pull registry
 ```
 下载完之后我们通过该镜像启动一个容器
 ```
+docker run -d -p 5000:5000 --privileged=true -v /opt/registry:/tmp/registry registry
+```
+参数说明：  
+-v /opt/registry:/tmp/registry :默认情况下，会将仓库存放于容器内的/tmp/registry目录下，指定本地目录挂载到容器
+ 
+–privileged=true ：CentOS7中的安全模块selinux把权限禁掉了，参数给容器加特权，不加上传镜像会报权限错误(OSError: [Errno 13] Permission denied: ‘/tmp/registry/repositories/liibrary’)或者（Received unexpected HTTP status: 500 Internal Server Error）错误
+
+### 2.0?
+```
 docker run -d -v /home/hzq/registry:/var/lib/registry -p 5000:5000 --restart=always --privileged=true --name registry registry:latest
 ```
 参数说明：  
