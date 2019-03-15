@@ -168,9 +168,11 @@ Error response from daemon: Unexpected status code 404
 ```
 $curl  http://10.10.105.71:5000/v2/_catalog
 {"repositories":["tonybai/busybox"]}
+$curl  http://118.126.104.33:5000/v2/_catalog
 
 $ curl  http://10.10.105.71:5000/v2/tonybai/busybox/tags/list
 {"name":"tonybai/busybox","tags":["latest"]}
+$curl  http://118.126.104.33:5000/v2/bagui3/nginx/tags/list
 ```
 在其他主机上，我们尝试pull busybox：
 ```
